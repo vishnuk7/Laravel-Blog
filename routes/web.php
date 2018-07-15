@@ -53,7 +53,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
     ]);
 
     Route::get('/category/delete/{id}',[
-        'uses'=>'CategoryController@edit',
+        'uses'=>'CategoryController@destroy',
         'as'=>'category.delete'
     ]);
 
