@@ -33,8 +33,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
     ]);
 
     Route::get('/category',[
-        'uses'=>'CategoryController@create',
-        'as'=>'cateory'
+        'uses'=>'CategoryController@index',
+        'as'=>'category'
     ]);
 
     Route::get('/category/create',[
@@ -45,6 +45,16 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
     Route::post('/category/store',[
         'uses'=>'CategoryController@store',
         'as'=>'category.store'
+    ]);
+
+    Route::get('/category/edit/{id}',[
+        'uses'=>'CategoryController@edit',
+        'as'=>'category.edit'
+    ]);
+
+    Route::get('/category/delete/{id}',[
+        'uses'=>'CategoryController@edit',
+        'as'=>'category.delete'
     ]);
 });
 
