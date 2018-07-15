@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Post;
+use Session;
 
 class PostsController extends Controller
 {
@@ -23,7 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.posts.create')->with('categories',Category::all());
     }
 
     /**
@@ -37,10 +40,25 @@ class PostsController extends Controller
         $this->validate($request,[
             'title'=>'required|max:255',
             'picture'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'content'=>'required'
+            'content'=>'required',
+            'category_id'=>'required'
         ]);
 
-        dd($request->all());
+        // dd($request->all());
+        $picture = $request->picture;
+        $picture_new = time().$picture->getClientOriginalName();
+
+        $picture->move('uploads/posts',$picture_new); //moving the file ('dir',filename)
+
+        $post = Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'featured' => 'uploads/posts'.$picture_new, //dir+file_name
+            'category_id'=> $request->category_id
+        ]);
+
+        Session::flash('success','Post created successfully');
+
     }
 
     /**

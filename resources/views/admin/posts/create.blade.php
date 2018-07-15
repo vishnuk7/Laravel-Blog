@@ -4,7 +4,6 @@
 
     @include('admin.include.errors')
 
-    @endif
 
     <div class="card">
         <div class="card-header">
@@ -23,6 +22,17 @@
                     <label for="feature">Featured Image</label>
                     <input type="file" class="form-control" name="picture" id="feature">
                 </div>
+
+                <div class="form-group">
+                        <label for="category">Select a Category</label>
+                        <select class="custom-select" name="category_id" id="category">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
                 <div class="form-group">
                     <label for="content">Content</label>
