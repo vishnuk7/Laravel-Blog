@@ -71,8 +71,22 @@
             </div>
         </nav>
 
+               {{-- Flash Message --}}
+               @if(Session::has('success'))
+
+               <div class="alert alert-success alert-dismissible fade show" role="alert">
+                   <strong>{{ Session::get('success') }}</strong>
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+
+               @endif
+
        <main class="mt-4 container">
            <div class="row">
+                {{-- Auth Checking --}}
+
                 @if(Auth::check())
                     <div class="col-lg-4">
                         <ul class="list-group">
@@ -101,5 +115,8 @@
            </div>
        </main>
     </div>
+
+
+
 </body>
 </html>
