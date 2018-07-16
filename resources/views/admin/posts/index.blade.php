@@ -6,19 +6,19 @@
         <thead>
              <th>Image</th>
              <th>Title</th>
-             <th>Edit</th>
-             <th>Delete</th>
+             <th>Editing</th>
+             <th>Deleting</th>
         </thead>
 
         <tbody>
-           @foreach($posts as $post)
+            @foreach($posts as $post)
                 <tr>
-                    <td></td>
+                    <td><img src="{{ $post->featured }}" width="140px" height="90px" alt="{{ $post->title }}"/></td>
                     <td>{{ $post->title }}</td>
                     <td><a class="btn btn-sm btn-info" href="">Edit</a></td>
-                    <td><a class="btn btn-danger btn-sm" href="">Delete</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
                 </tr>
-           @endforeach
+            @endforeach
         </tbody>
 
     </table>

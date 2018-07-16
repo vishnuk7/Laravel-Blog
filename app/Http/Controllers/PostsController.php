@@ -54,12 +54,12 @@ class PostsController extends Controller
         $picture = $request->picture;
         $picture_new = time().$picture->getClientOriginalName();
 
-        $picture->move('uploads/posts',$picture_new); //moving the file ('dir',filename)
+        $picture->move('uploads/posts/',$picture_new); //moving the file ('dir',filename)
 
         $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'featured' => 'uploads/posts'.$picture_new, //dir+file_name
+            'featured' => 'uploads/posts/'.$picture_new, //dir+file_name
             'category_id'=> $request->category_id,
             'slug'=>str_slug($request->title)
         ]);
