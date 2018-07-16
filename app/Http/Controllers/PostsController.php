@@ -26,6 +26,12 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $categories = Category::all();
+
+        if($categories->count() === 0){
+            Session::flash('info','You must have some categories before attempting to create apost');
+            return redirect()->back();
+        }
         return view('admin.posts.create')->with('categories',Category::all());
     }
 
