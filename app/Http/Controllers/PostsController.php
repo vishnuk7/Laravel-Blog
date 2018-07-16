@@ -60,10 +60,13 @@ class PostsController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'featured' => 'uploads/posts'.$picture_new, //dir+file_name
-            'category_id'=> $request->category_id
+            'category_id'=> $request->category_id,
+            'slug'=>str_slug($request->title)
         ]);
 
         Session::flash('success','Post created successfully');
+
+        return redirect()->back();
 
     }
 

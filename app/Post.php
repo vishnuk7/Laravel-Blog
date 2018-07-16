@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use SoftDeltes;
+    use SoftDeletes;
 
     //To Remove this error o fillable property to allow mass assignment on
     protected $fillable =[
-        'title','content','category_id','featured'
+        'title','content','category_id','featured','slug'
     ];
 
     protected $dates = ['deleted_at'];
