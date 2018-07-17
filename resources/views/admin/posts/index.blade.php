@@ -16,7 +16,7 @@
                     <td><img src="{{ $post->featured }}" width="140px" height="90px" alt="{{ $post->title }}"/></td>
                     <td>{{ $post->title }}</td>
                     <td><a class="btn btn-sm btn-info" href="">Edit</a></td>
-                    <td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+                <td><a class="btn btn-sm btn-danger" href="{{ route('post.delete',['id'=>$post->id]) }}">Trash</a></td>
                 </tr>
             @endforeach
         </tbody>

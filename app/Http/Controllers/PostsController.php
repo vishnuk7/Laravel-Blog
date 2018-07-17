@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Category;
 use App\Post;
 use Session;
-
 class PostsController extends Controller
 {
     /**
@@ -16,9 +13,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index')->with('posts',Post::all());
+       return view('admin.posts.index')->with('posts',Post::all());
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -27,14 +23,12 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all();
-
         if($categories->count() === 0){
             Session::flash('info','You must have some categories before attempting to create apost');
             return redirect()->back();
         }
         return view('admin.posts.create')->with('categories',Category::all());
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -49,13 +43,10 @@ class PostsController extends Controller
             'content'=>'required',
             'category_id'=>'required'
         ]);
-
         // dd($request->all());
         $picture = $request->picture;
         $picture_new = time().$picture->getClientOriginalName();
-
-        $picture->move('uploads/posts/',$picture_new); //moving the file ('dir',filename)
-
+        $picture->move('uploads/posts',$picture_new); //moving the file ('dir',filename)
         $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -63,13 +54,9 @@ class PostsController extends Controller
             'category_id'=> $request->category_id,
             'slug'=>str_slug($request->title)
         ]);
-
         Session::flash('success','Post created successfully');
-
         return redirect()->back();
-
     }
-
     /**
      * Display the specified resource.
      *
@@ -80,7 +67,6 @@ class PostsController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,7 +77,6 @@ class PostsController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -103,7 +88,6 @@ class PostsController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -112,6 +96,11 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        Session::flash('success','The post just trashed');
+
+        return redirect()->back();
     }
 }
