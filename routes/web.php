@@ -20,6 +20,11 @@ Auth::routes();
 
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
 
+    Route::get('/test',function(){
+        return App/Category :: find(1)->posts;
+    });
+
+
     Route::get('/home', [
         'uses'=>'HomeController@index',
         'as'=>'home'
