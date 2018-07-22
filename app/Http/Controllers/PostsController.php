@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
+use App\Tag;
 use App\Post;
 use Session;
+use File;
 class PostsController extends Controller
 {
     /**
@@ -27,7 +29,8 @@ class PostsController extends Controller
             Session::flash('info','You must have some categories before attempting to create apost');
             return redirect()->back();
         }
-        return view('admin.posts.create')->with('categories',Category::all());
+        return view('admin.posts.create')->with('categories',Category::all())
+                                         ->with('tags',Tag::all());
     }
     /**
      * Store a newly created resource in storage.
@@ -41,8 +44,11 @@ class PostsController extends Controller
             'title'=>'required|max:255',
             'picture'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'content'=>'required',
-            'category_id'=>'required'
+            'category_id'=>'required',
+            'tags'=>'required'
         ]);
+
+
         // dd($request->all());
         $picture = $request->picture;
         $picture_new = time().$picture->getClientOriginalName();
@@ -54,6 +60,8 @@ class PostsController extends Controller
             'category_id'=> $request->category_id,
             'slug'=>str_slug($request->title)
         ]);
+
+        $post->tags()->attach($request->tags);
         Session::flash('success','Post created successfully');
         return redirect()->back();
     }
@@ -136,12 +144,17 @@ class PostsController extends Controller
 
     public function kill($id){
         $post = Post::withTrashed()->where('id',$id)->first();
+        $image_path = $post->featured;
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+        }
+
         $post->forceDelete();
         // dd($post->featured);
-        // $image_path =
 
         Session::flash('success','Post deleted permanently');
         return redirect()->back();
+
     }
 
     public function restore($id){

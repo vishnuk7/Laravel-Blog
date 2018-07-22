@@ -19,10 +19,10 @@ class Post extends Model
     protected $dates = ['deleted_at'];
 
     public function category(){
-        return $this->belongsTo('App/Category');
+        return $this->belongsTo('App\Category');
     }
 
     public function tags(){
-        return $this->belongsToMany('App/Tag');
+        return $this->belongsToMany('App\Tag');
     }
 }
