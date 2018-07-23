@@ -138,6 +138,16 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
         'as'=> 'users'
     ]);
 
+    Route::get('/users/create',[
+        'uses' => 'UsersController@create',
+        'as'   => 'users.create'
+    ]);
+
+    Route::post('/users/strore',[
+        'uses' => 'UsersController@store',
+        'as' => 'users.store'
+    ]);
+
 });
 
 
