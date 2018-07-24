@@ -145,12 +145,12 @@ class PostsController extends Controller
     public function kill($id){
         $post = Post::withTrashed()->where('id',$id)->first();
         $image_path = $post->featured;
-        if(File::exists($image_path)) {
-            File::delete($image_path);
-        }
+        // dd('{{ $image_path }}');
+        if(file_exists(public_path($image_path )))
+            unlink(public_path($image_path));
 
         $post->forceDelete();
-        // dd($post->featured);
+
 
         Session::flash('success','Post deleted permanently');
         return redirect()->back();
