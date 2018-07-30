@@ -9,7 +9,7 @@
             Edit Your Profile
         </div>
         <div class="card-body">
-            <form action="{{ route('users.profile.update') }}" method="post" >
+            <form action="{{ route('users.profile.update') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="form-group">

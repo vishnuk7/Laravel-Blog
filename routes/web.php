@@ -163,7 +163,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
         'as'   => 'users.profile'
     ]);
 
-    Route::get('users/profile/update',[
+    Route::post('users/profile/update',[
         'uses' => 'ProfilesController@update',
         'as'   => 'users.profile.update'
     ]);
