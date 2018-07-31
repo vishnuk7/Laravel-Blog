@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
+use App\User;
 
 class ProfilesController extends Controller
 {
@@ -116,6 +117,14 @@ class ProfilesController extends Controller
      */
     public function destroy($id)
     {
-        // $profile = User::
+       $user = User::find($id);
+
+       $user->profile->delete();
+
+       $user->delete();
+
+       Session::flash('success','User Deleted');
+
+       return redirect()->back();
     }
 }
