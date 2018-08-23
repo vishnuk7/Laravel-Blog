@@ -21,4 +21,14 @@ class FrontEndController extends Controller
                 ->with('mobileDevelopment',Category::find(4))
                 ->with('setting',Setting::first());
     }
+
+    public function singlePost($slug){
+
+        $post = Post::where('slug',$slug)->first();
+
+        return view('single')->with('post',$post)
+                             ->with('title',$post->title)
+                             ->with('categories',Category::take(4)->get())
+                             ->with('setting',Setting::first());
+    }
 }
