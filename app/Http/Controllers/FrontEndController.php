@@ -36,4 +36,12 @@ class FrontEndController extends Controller
                              ->with('prev',Post::find($prev_id));
 
     }
+
+    public function category($id){
+        $category = Category::find($id);
+        return view('category')->with('category',$category)
+                               ->with('title',$category->name)
+                               ->with('categories',Category::take(4)->get())
+                               ->with('setting',Setting::first());
+    }
 }
