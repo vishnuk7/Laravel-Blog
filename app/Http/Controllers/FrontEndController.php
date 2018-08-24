@@ -52,4 +52,6 @@ class FrontEndController extends Controller
                           ->with('categories',Category::take(4)->get())
                           ->with('setting',Setting::first());
     }
+
+
 }
